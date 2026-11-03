@@ -1,0 +1,43 @@
+﻿<Window x:Class="RM.App.Views.ApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:RM.App.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:ApplicationWindowViewModel, IsDesignTimeCreatable=False}"  
+        Title="{Binding WindowTitle, Mode=OneWay}" 
+        ResizeMode="CanResizeWithGrip" 
+        WindowStartupLocation="CenterScreen"
+        Height="450" 
+        Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="Модули">
+                <MenuItem Header="Модуль работы с ГПД">
+                    <MenuItem Header="Справочник единиц работ">
+                        
+                    </MenuItem>
+                    <MenuItem Header="Справочник видов работ">
+
+                    </MenuItem>
+                    <MenuItem Header="Справочник исполнителей">
+
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе" Command="{Binding ShowAboutCommand}">
+                    
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+    </Grid>
+</Window>
