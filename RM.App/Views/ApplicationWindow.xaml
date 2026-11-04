@@ -14,6 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -21,23 +22,55 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Модули">
                 <MenuItem Header="Модуль работы с ГПД">
-                    <MenuItem Header="Справочник единиц работ">
-                        
-                    </MenuItem>
-                    <MenuItem Header="Справочник видов работ">
-
-                    </MenuItem>
-                    <MenuItem Header="Справочник исполнителей">
-
-                    </MenuItem>
+                    <MenuItem Header="Справочник единиц работ" />
+                    <MenuItem Header="Справочник видов работ" />
+                    <MenuItem Header="Справочник исполнителей" />
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Помощь">
-                <MenuItem Header="О программе" Command="{Binding ShowAboutCommand}">
-                    
-                </MenuItem>
+            <MenuItem Header="Окно"/>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе" Command="{Binding ShowAboutCommand}"/>
             </MenuItem>
         </Menu>
 
+        <ToolBarTray Grid.Row="1">
+            <ToolBar>
+                <Button ToolTip="Открыть справочник единиц работ">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📋"/>
+                        <TextBlock Margin="4,0,0,0" Text="Единицы работ"/>
+                    </StackPanel>
+                </Button>
+
+                <Button ToolTip="Открыть справочник видов работ">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📝"/>
+                        <TextBlock Margin="4,0,0,0" Text="Виды работ"/>
+                    </StackPanel>
+                </Button>
+
+                <Button ToolTip="Открыть справочник исполнителей договоров">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="👤"/>
+                        <TextBlock Margin="4,0,0,0" Text="Исполнители"/>
+                    </StackPanel>
+                </Button>
+
+                <Separator/>
+
+                <Button ToolTip="Закрыть текущую вкладку">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="✕"/>
+                        <TextBlock Margin="4,0,0,0" Text="Закрыть"/>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <TabControl x:Name="ContentTabs" Grid.Row="2" TabStripPlacement="Top"/>
+
+        <StatusBar Grid.Row="3">
+            <StatusBarItem x:Name="StatusText">Готово</StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
