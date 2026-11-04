@@ -31,6 +31,12 @@ namespace RM.App.Services
         public Func<Window> OwnerFactory { get; set; }
 
         /// <summary>
+        /// Получает или задает признак модальности окна.
+        /// </summary>
+        /// <value>Признак модальности окна.</value>
+        public bool IsModal { get; set; }
+
+        /// <summary>
         /// Получает или задает признак открытия окна.
         /// </summary>
         /// <value>

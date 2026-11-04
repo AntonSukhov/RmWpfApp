@@ -58,12 +58,17 @@ namespace RM.App.Services
             {
                 var owner = config.OwnerFactory();
                 window.Owner = owner 
-                    ?? throw new InvalidOperationException($"{nameof(config.OwnerFactory)} вернул {null}.");
-
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                    ?? throw new InvalidOperationException($"{nameof(config.OwnerFactory)} вернул null.");
             }
 
-            window.Show();
+            if(config.IsModal)
+            {
+                window.ShowDialog();
+            }
+            else
+            {
+                window.Show();
+            }      
         }
     }
 }

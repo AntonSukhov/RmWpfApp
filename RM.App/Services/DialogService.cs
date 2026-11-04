@@ -40,9 +40,7 @@ namespace RM.App.Services
             if (config.OwnerFactory != null)
             {
                 var owner = config.OwnerFactory();
-                window.Owner = owner ?? throw new InvalidOperationException($"{nameof(config.OwnerFactory)} вернул {null}.");
-
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                window.Owner = owner ?? throw new InvalidOperationException($"{nameof(config.OwnerFactory)} вернул null.");
             }
 
             var dialogResult = window.ShowDialog();

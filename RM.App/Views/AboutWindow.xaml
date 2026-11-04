@@ -8,6 +8,7 @@
         d:DataContext="{d:DesignInstance Type=vm:AboutWindowViewModel, IsDesignTimeCreatable=False}"
         Title="{Binding WindowTitle, Mode=OneWay}"
         ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
         Height="320"
         Width="500">
     <Grid>
