@@ -21,13 +21,6 @@
         void Show<TViewModel>(TViewModel viewModel) where TViewModel : class;
 
         /// <summary>
-        /// Закрывает элемент области.
-        /// </summary>
-        /// <typeparam name="TViewModel">Тип данных модели представления элемента области.</typeparam>
-        /// <param name="viewModel">Модель представления элемента области.</param>
-        void Close<TViewModel>(TViewModel viewModel) where TViewModel : class;
-
-        /// <summary>
         /// Закрывает все элементы области.
         /// </summary>
         void CloseAll();

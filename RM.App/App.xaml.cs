@@ -31,9 +31,38 @@ namespace RM.App
                 }
             };
 
-            var windowService = new WindowService(windowConfigurations);
+            var regionConfigurations = new Dictionary<Type, RegionItemConfiguration>
+            {
+                {
+                    typeof(WorkUnitsViewModel),
+                    new RegionItemConfiguration
+                    {
+                        ViewFactory = () => new WorkUnitsView(),
+                        Title = "Единицы работ"
+                    }
+                },
+                {
+                    typeof(WorkTypesViewModel),
+                    new RegionItemConfiguration
+                    {
+                        ViewFactory = () => new WorkTypesView(),
+                        Title = "Виды работ"
+                    }
+                },
+                {
+                    typeof(PerformersViewModel),
+                    new RegionItemConfiguration
+                    {
+                        ViewFactory = () => new PerformersView(),
+                        Title = "Исполнители договоров"
+                    }
+                }
+            };
 
-            var applicationWindowViewModel = new ApplicationWindowViewModel(windowService);
+            var windowService = new WindowService(windowConfigurations);
+            var regionService = new RegionService(applicationWindow.ContentTabs, regionConfigurations);
+
+            var applicationWindowViewModel = new ApplicationWindowViewModel(windowService, regionService);
             applicationWindow.DataContext = applicationWindowViewModel;
             Current.MainWindow = applicationWindow;
 

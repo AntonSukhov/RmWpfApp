@@ -55,6 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\PerformersViewModel.cs" />
+    <Compile Include="ViewModels\WorkTypesViewModel.cs" />
+    <Compile Include="ViewModels\WorkUnitsViewModel.cs" />
+    <Compile Include="Views\PerformersView.xaml.cs">
+      <DependentUpon>PerformersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkTypesView.xaml.cs">
+      <DependentUpon>WorkTypesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkUnitsView.xaml.cs">
+      <DependentUpon>WorkUnitsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,6 +98,18 @@
       <DependentUpon>ApplicationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PerformersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkTypesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkUnitsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

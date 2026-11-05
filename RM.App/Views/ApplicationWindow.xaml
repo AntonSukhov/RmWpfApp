@@ -22,9 +22,9 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Модули">
                 <MenuItem Header="Модуль работы с ГПД">
-                    <MenuItem Header="Справочник единиц работ" />
-                    <MenuItem Header="Справочник видов работ" />
-                    <MenuItem Header="Справочник исполнителей" />
+                    <MenuItem Header="Справочник единиц работ" Command="{Binding ShowWorkUnitsCommand}"/>
+                    <MenuItem Header="Справочник видов работ" Command="{Binding ShowWorkTypesCommand}"/>
+                    <MenuItem Header="Справочник исполнителей" Command="{Binding ShowPerformersCommand}"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Окно"/>
@@ -35,21 +35,21 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar>
-                <Button ToolTip="Открыть справочник единиц работ">
+                <Button ToolTip="Открыть справочник единиц работ" Command="{Binding ShowWorkUnitsCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="📋"/>
                         <TextBlock Margin="4,0,0,0" Text="Единицы работ"/>
                     </StackPanel>
                 </Button>
 
-                <Button ToolTip="Открыть справочник видов работ">
+                <Button ToolTip="Открыть справочник видов работ" Command="{Binding ShowWorkTypesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="📝"/>
                         <TextBlock Margin="4,0,0,0" Text="Виды работ"/>
                     </StackPanel>
                 </Button>
 
-                <Button ToolTip="Открыть справочник исполнителей договоров">
+                <Button ToolTip="Открыть справочник исполнителей договоров" Command="{Binding ShowPerformersCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="👤"/>
                         <TextBlock Margin="4,0,0,0" Text="Исполнители"/>
@@ -58,7 +58,7 @@
 
                 <Separator/>
 
-                <Button ToolTip="Закрыть текущую вкладку">
+                <Button ToolTip="Закрыть все открытые вкладки" Command="{Binding CloseRegionItemsCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="✕"/>
                         <TextBlock Margin="4,0,0,0" Text="Закрыть"/>

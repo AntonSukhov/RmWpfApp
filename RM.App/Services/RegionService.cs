@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace RM.App.Services
 {
@@ -52,32 +55,62 @@ namespace RM.App.Services
             var newView = config.ViewFactory();
             newView.DataContext = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 
-            var tabItem = new TabItem
-            {
-                Header = config.Title,
-                Content = newView
-            };
+            var tabItem = CreateTabItem(config, newView);
 
             _tabControl.Items.Add(tabItem);
             _tabControl.SelectedItem = tabItem;
         }
 
         /// <inheritdoc/>
-        public void Close<TViewModel>(TViewModel viewModel) where TViewModel : class
+        public void CloseAll()
         {
-            foreach (TabItem tab in _tabControl.Items)
+            foreach (var tabItem in _tabControl.Items.OfType<TabItem>().ToList())
             {
-                if (tab.Content is UserControl view &&
-                    ReferenceEquals(view.DataContext, viewModel))
-                {
-                    _tabControl.Items.Remove(tab);
-
-                    return;
-                }
+                RemoveTab(tabItem);
             }
         }
 
-        /// <inheritdoc/>
-        public void CloseAll() => _tabControl.Items.Clear();
+        private TabItem CreateTabItem(RegionItemConfiguration config, UserControl view)
+        {
+            var header = new StackPanel { Orientation = Orientation.Horizontal };
+
+            header.Children.Add(new TextBlock
+            {
+                Text = config.Title,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 6, 0)
+            });
+
+            var closeButton = new Button
+            {
+                Content = "✕",
+                Width = 18,
+                Height = 18,
+                Padding = new Thickness(0),
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(0),
+                VerticalAlignment = VerticalAlignment.Center,
+                ToolTip = "Закрыть вкладку"
+            };
+
+            var tabItem = new TabItem { Content = view };
+
+            // Кнопка закрывает именно эту вкладку
+            closeButton.Click += (s, e) => RemoveTab(tabItem);
+
+            header.Children.Add(closeButton);
+            tabItem.Header = header;
+
+            return tabItem;
+        }
+
+        private void RemoveTab(TabItem tabItem)
+        {
+            // Гасим шаблон до удаления, иначе стандартные триггеры TabItem
+            // попытаются забиндиться на уже недоступный TabControl
+            // (ошибка "Cannot find source for binding ... TabStripPlacement")
+            tabItem.Template = null;
+            _tabControl.Items.Remove(tabItem);
+        }
     }
 }
