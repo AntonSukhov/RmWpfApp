@@ -1,4 +1,6 @@
-﻿using RM.App.Services;
+﻿using Infrastructure.Wpf.Configurations;
+using Infrastructure.Wpf.Services.Regions;
+using Infrastructure.Wpf.Services.Windows;
 using RM.App.ViewModels;
 using RM.App.Views;
 using System;

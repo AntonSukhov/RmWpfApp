@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Foundation.Bindings;
 using Infrastructure.Foundation.Commands;
-using RM.App.Services;
+using Infrastructure.Wpf.Services.Regions;
+using Infrastructure.Wpf.Services.Windows;
 using RM.App.Views;
 using System;
 
