@@ -55,6 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\NotificationButton.cs" />
+    <Compile Include="Enums\NotificationIcon.cs" />
+    <Compile Include="Enums\NotificationResult.cs" />
+    <Compile Include="Services\INotificationService.cs" />
+    <Compile Include="Services\MessageBoxNotificationService.cs" />
     <Compile Include="ViewModels\PerformersViewModel.cs" />
     <Compile Include="ViewModels\WorkTypesViewModel.cs" />
     <Compile Include="ViewModels\WorkUnitsViewModel.cs" />

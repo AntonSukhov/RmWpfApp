@@ -86,7 +86,6 @@ namespace RM.App.Services
                 Content = "✕",
                 Width = 18,
                 Height = 18,
-                Padding = new Thickness(0),
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(0),
                 VerticalAlignment = VerticalAlignment.Center,
@@ -106,9 +105,6 @@ namespace RM.App.Services
 
         private void RemoveTab(TabItem tabItem)
         {
-            // Гасим шаблон до удаления, иначе стандартные триггеры TabItem
-            // попытаются забиндиться на уже недоступный TabControl
-            // (ошибка "Cannot find source for binding ... TabStripPlacement")
             tabItem.Template = null;
             _tabControl.Items.Remove(tabItem);
         }
