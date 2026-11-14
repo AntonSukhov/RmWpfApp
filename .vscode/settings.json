@@ -1,0 +1,8 @@
+{
+    "omnisharp.msbuildTargetFramework": "net48",
+    "omnisharp.useGlobalMSBuild": true,
+    "omnisharp.enableMsBuildLoadProjectsOnLaunch": true,
+    "dotnet.defaultSolution": "RM.App.sln",
+    "csharp.suppressBuildTasksNotification": true,
+    "dotnet.preferCSharpExtension": true
+}
