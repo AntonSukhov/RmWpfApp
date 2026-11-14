@@ -2,6 +2,7 @@
 using Infrastructure.Foundation.Commands;
 using Infrastructure.Wpf.Services.Regions;
 using Infrastructure.Wpf.Services.Windows;
+using RM.App.Factories;
 using RM.App.Views;
 using System;
 
@@ -14,6 +15,7 @@ namespace RM.App.ViewModels
     {
         private readonly IWindowService _windowService;
         private readonly IRegionService _regionService;
+        private readonly IWorkUnitsViewModelFactory _workUnitsViewModelFactory;
 
         public string WindowTitle => "Рабочее место сотрудника";
 
@@ -30,10 +32,13 @@ namespace RM.App.ViewModels
         /// <param name="regionService">Сервис области.</param>
         /// <exception cref="ArgumentNullException"/>
         public ApplicationWindowViewModel(IWindowService windowService,
-                                          IRegionService regionService)
+                                          IRegionService regionService,
+                                          IWorkUnitsViewModelFactory workUnitsViewModelFactory)
         {
             _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
             _regionService = regionService ?? throw new ArgumentNullException(nameof(regionService));
+            _workUnitsViewModelFactory = workUnitsViewModelFactory 
+                ?? throw new ArgumentNullException(nameof(workUnitsViewModelFactory));
 
             ShowAboutCommand = new RelayCommand(ExecuteShowAbout);
             ShowWorkUnitsCommand = new RelayCommand(ExecuteShowWorkUnits);
@@ -49,7 +54,9 @@ namespace RM.App.ViewModels
 
         private void ExecuteShowWorkUnits(object parameter)
         {
-            _regionService.Show(new WorkUnitsViewModel());
+            var viewModel = _workUnitsViewModelFactory.Create();
+
+            _regionService.Show(viewModel);
         }
 
         private void ExecuteShowWorkTypes(object parameter)

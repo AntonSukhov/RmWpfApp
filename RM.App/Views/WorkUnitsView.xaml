@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:RM.App.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:WorkUnitsViewModel, IsDesignTimeCreatable=False}"
-        d:DesignHeight="450" d:DesignWidth="800">
+        d:DesignHeight="450" d:DesignWidth="800" Loaded="OnLoaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,7 +17,7 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Действия">
-                <MenuItem Header="Обновить"/>
+                <MenuItem Header="Обновить" Command="{Binding UpdateWorkUnitsCommand}"/>
             </MenuItem>
             <MenuItem Header="Окно"/>
             <MenuItem Header="Справка">
@@ -27,20 +27,34 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar>
-                <Button ToolTip="Обновить справочник единиц работ">
+                <Button Command="{Binding UpdateWorkUnitsCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="⟳" FontSize="16" VerticalAlignment="Center" Margin="0,-2,0,0"/>
-                        <TextBlock Text="Обновить" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                        <TextBlock Text="⟳" 
+                                   FontSize="16" 
+                                   VerticalAlignment="Center" 
+                                   Margin="0,-2,0,0"/>
+                        <TextBlock Text="Обновить" 
+                                   VerticalAlignment="Center" 
+                                   Margin="4,0,0,0"/>
                     </StackPanel>
                 </Button>
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="2" IsReadOnly="True">
+        <DataGrid Grid.Row="2" 
+                  IsReadOnly="True" 
+                  ItemsSource="{Binding WorkUnits, Mode=OneWay}"
+                  AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ИД единицы работ"/>
-                <DataGridTextColumn Header="Название единицы работ"/>
+                <DataGridTextColumn Header="ИД единицы работ" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Название единицы работ" Binding="{Binding Name}"/>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Обновить" ToolTip="Обновить справочник единиц работ"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            
         </DataGrid>
 
         <StatusBar Grid.Row="3">
