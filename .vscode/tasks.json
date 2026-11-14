@@ -3,13 +3,14 @@
     "tasks": [
         {
             "label": "Build Debug",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy", "Bypass",
-                "-Command",
-                "& { $v = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe'; $m = & $v -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; if ($m) { & $m 'RM.App.sln' '/t:Build' '/p:Configuration=Debug' '/v:minimal' } else { Write-Error 'MSBuild не найден' } }"
+                "-File", "${workspaceFolder}/.vscode/msbuild.ps1",
+                "-Target", "Build",
+                "-Configuration", "Debug"
             ],
             "group": {
                 "kind": "build",
@@ -19,38 +20,39 @@
         },
         {
             "label": "Build Release",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy", "Bypass",
-                "-Command",
-                "& { $v = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe'; $m = & $v -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; if ($m) { & $m 'RM.App.sln' '/t:Build' '/p:Configuration=Release' '/v:minimal' } else { Write-Error 'MSBuild не найден' } }"
+                "-File", "${workspaceFolder}/.vscode/msbuild.ps1",
+                "-Target", "Build",
+                "-Configuration", "Release"
             ],
             "group": "build",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Restore NuGet",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy", "Bypass",
-                "-Command",
-                "& { $v = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe'; $m = & $v -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; if ($m) { & $m 'RM.App.sln' '/t:Restore' '/v:minimal' } else { Write-Error 'MSBuild не найден' } }"
+                "-File", "${workspaceFolder}/.vscode/msbuild.ps1",
+                "-Target", "Restore"
             ],
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Clean",
-            "type": "shell",
+            "type": "process",
             "command": "powershell",
             "args": [
                 "-NoProfile",
                 "-ExecutionPolicy", "Bypass",
-                "-Command",
-                "& { $v = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe'; $m = & $v -latest -requires Microsoft.Component.MSBuild -find MSBuild\\**\\Bin\\MSBuild.exe; if ($m) { & $m 'RM.App.sln' '/t:Clean' '/v:minimal' } else { Write-Error 'MSBuild не найден' } }"
+                "-File", "${workspaceFolder}/.vscode/msbuild.ps1",
+                "-Target", "Clean"
             ],
             "problemMatcher": "$msCompile"
         }
