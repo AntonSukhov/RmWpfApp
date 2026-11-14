@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Factories\IWorkTypesViewModelFactory.cs" />
+    <Compile Include="Factories\WorkTypesViewModelFactory.cs" />
+    <Compile Include="Factories\IPerformersViewModelFactory.cs" />
+    <Compile Include="Factories\PerformersViewModelFactory.cs" />
+    <Compile Include="Factories\IAboutWindowViewModelFactory.cs" />
+    <Compile Include="Factories\AboutWindowViewModelFactory.cs" />
     <Compile Include="Factories\IWorkUnitsViewModelFactory.cs" />
     <Compile Include="Factories\WorkUnitsViewModelFactory.cs" />
     <Compile Include="Models\WorkUnit.cs" />

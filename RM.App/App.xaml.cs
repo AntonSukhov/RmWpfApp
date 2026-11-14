@@ -2,13 +2,13 @@
 using Infrastructure.Wpf.Services.Regions;
 using Infrastructure.Wpf.Services.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using RM.Api.Extensions;
 using RM.Api.Services;
 using RM.App.Factories;
 using RM.App.ViewModels;
 using RM.App.Views;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows;
 
 namespace RM.App
@@ -35,19 +35,27 @@ namespace RM.App
             applicationWindow.Show();
         }
 
-        private IServiceCollection GetServices()
+        private static IServiceCollection GetServices()
         {
             var services = new ServiceCollection();
 
             services.AddHttpClient("RmWebApi", client =>
             {
-                client.BaseAddress = new Uri("https://192.168.122.1:5001/"); 
+                const string keyName = "RmWebApiBaseUrl";
+                var webApiUrl = ConfigurationManager.AppSettings[keyName];
+
+                if (string.IsNullOrWhiteSpace(webApiUrl))
+                {
+                    throw new InvalidOperationException($"Ключ '{keyName}' не задан в app.config.");
+                }
+
+                client.BaseAddress = new Uri(webApiUrl);
                 client.Timeout = TimeSpan.FromSeconds(30);
             });
 
-            services.AddScoped<IWorkTypeService, WorkTypeService>();
-            services.AddScoped<IWorkUnitService, WorkUnitService>();
-            services.AddScoped<IPerformerService, PerformerService>();
+            services.AddTransient<IWorkTypeService, WorkTypeService>();
+            services.AddTransient<IWorkUnitService, WorkUnitService>();
+            services.AddTransient<IPerformerService, PerformerService>();
 
             services.AddSingleton<ApplicationWindow>();
             services.AddTransient<AboutWindow>();
@@ -107,18 +115,12 @@ namespace RM.App
                 }
             );
 
-            services.AddSingleton<IWindowService, WindowService>();
-            services.AddSingleton<IRegionService, RegionService>((provider) =>
-            {
-                var tabControl = provider.GetService<ApplicationWindow>().ContentTabs;
-                var regionConfigurations = provider.GetService<Dictionary<Type, RegionItemConfiguration>>();
-                return new RegionService(tabControl, regionConfigurations);
-            }
-            );
-
-
             services.AddSingleton<IWorkUnitsViewModelFactory, WorkUnitsViewModelFactory>();
+            services.AddSingleton<IWorkTypesViewModelFactory, WorkTypesViewModelFactory>();
+            services.AddSingleton<IPerformersViewModelFactory, PerformersViewModelFactory>();
+            services.AddSingleton<IAboutWindowViewModelFactory, AboutWindowViewModelFactory>();
             services.AddSingleton<ApplicationWindowViewModel>();
+            services.AddTransient<AboutWindowViewModel>();
 
             return services;
         }

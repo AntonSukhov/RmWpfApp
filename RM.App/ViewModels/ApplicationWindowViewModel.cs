@@ -16,6 +16,9 @@ namespace RM.App.ViewModels
         private readonly IWindowService _windowService;
         private readonly IRegionService _regionService;
         private readonly IWorkUnitsViewModelFactory _workUnitsViewModelFactory;
+        private readonly IWorkTypesViewModelFactory _workTypesViewModelFactory;
+        private readonly IPerformersViewModelFactory _performersViewModelFactory;
+        private readonly IAboutWindowViewModelFactory _aboutWindowViewModelFactory;
 
         public string WindowTitle => "Рабочее место сотрудника";
 
@@ -30,15 +33,28 @@ namespace RM.App.ViewModels
         /// </summary>
         /// <param name="windowService">Сервис обычного окна.</param>
         /// <param name="regionService">Сервис области.</param>
+        /// <param name="workUnitsViewModelFactory">Фабрика для <see cref="WorkUnitsViewModel"/>.</param>
+        /// <param name="workTypesViewModelFactory">Фабрика для <see cref="WorkTypesViewModel"/>.</param>
+        /// <param name="performersViewModelFactory">Фабрика для <see cref="PerformersViewModel"/>.</param>
+        /// <param name="aboutWindowViewModelFactory">Фабрика для <see cref="AboutWindowViewModel"/>.</param>
         /// <exception cref="ArgumentNullException"/>
         public ApplicationWindowViewModel(IWindowService windowService,
                                           IRegionService regionService,
-                                          IWorkUnitsViewModelFactory workUnitsViewModelFactory)
+                                          IWorkUnitsViewModelFactory workUnitsViewModelFactory,
+                                          IWorkTypesViewModelFactory workTypesViewModelFactory,
+                                          IPerformersViewModelFactory performersViewModelFactory,
+                                          IAboutWindowViewModelFactory aboutWindowViewModelFactory)
         {
             _windowService = windowService ?? throw new ArgumentNullException(nameof(windowService));
             _regionService = regionService ?? throw new ArgumentNullException(nameof(regionService));
             _workUnitsViewModelFactory = workUnitsViewModelFactory 
                 ?? throw new ArgumentNullException(nameof(workUnitsViewModelFactory));
+            _workTypesViewModelFactory = workTypesViewModelFactory 
+                ?? throw new ArgumentNullException(nameof(workTypesViewModelFactory));
+            _performersViewModelFactory = performersViewModelFactory 
+                ?? throw new ArgumentNullException(nameof(performersViewModelFactory));
+            _aboutWindowViewModelFactory = aboutWindowViewModelFactory 
+                ?? throw new ArgumentNullException(nameof(aboutWindowViewModelFactory));
 
             ShowAboutCommand = new RelayCommand(ExecuteShowAbout);
             ShowWorkUnitsCommand = new RelayCommand(ExecuteShowWorkUnits);
@@ -49,7 +65,7 @@ namespace RM.App.ViewModels
 
         private void ExecuteShowAbout(object parameter)
         {
-            _windowService.Show(new AboutWindowViewModel());
+            _windowService.Show(_aboutWindowViewModelFactory.Create());
         }
 
         private void ExecuteShowWorkUnits(object parameter)
@@ -61,12 +77,12 @@ namespace RM.App.ViewModels
 
         private void ExecuteShowWorkTypes(object parameter)
         {
-            _regionService.Show(new WorkTypesViewModel());
+            _regionService.Show(_workTypesViewModelFactory.Create());
         }
 
         private void ExecuteShowPerformers(object parameter)
         {
-            _regionService.Show(new PerformersViewModel());
+            _regionService.Show(_performersViewModelFactory.Create());
         }
 
         private void ExecuteCloseRegionItems(object parameter)
