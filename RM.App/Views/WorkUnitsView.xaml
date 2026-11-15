@@ -58,7 +58,9 @@
         </DataGrid>
 
         <StatusBar Grid.Row="3">
-            <StatusBarItem x:Name="StatusText">Количество строк: 0</StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding WorkUnits.Count, Mode=OneWay, StringFormat='Количество строк: {0}'}"/>
+            </StatusBarItem>
         </StatusBar>
 
     </Grid>
