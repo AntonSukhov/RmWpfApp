@@ -61,8 +61,8 @@ namespace RM.App.ViewModels
             }
             catch
             {
-                _notificationService.Show("Не удалось загрузить данные. Попробуйте повторить позже.", 
-                    "Ошибка при загрузке данных", icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
+                _notificationService.Show("Не удалось загрузить единицы работ. Попробуйте повторить позже.", 
+                    "Ошибка при загрузке единиц работ", icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
             }
             finally
             {
