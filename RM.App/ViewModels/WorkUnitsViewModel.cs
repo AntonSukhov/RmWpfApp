@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Foundation.Commands;
 using Infrastructure.Mvvm.ViewModels;
+using Infrastructure.Wpf.Services.Notifications;
 using RM.Api.Services;
 using RM.App.Models;
 using RM.App.Views;
@@ -14,6 +15,7 @@ namespace RM.App.ViewModels
     public class WorkUnitsViewModel : LoadingViewModelBase
     {
         private readonly IWorkUnitService _workUnitService;
+        private readonly INotificationService _notificationService;
 
         /// <summary>
         /// Получает единицы работ.
@@ -30,10 +32,12 @@ namespace RM.App.ViewModels
         /// <summary>
         /// Инициализирует экземпляр <see cref="WorkUnitsViewModel"/>.
         /// </summary>
-        /// <param name="workUnitService"></param>
-        public WorkUnitsViewModel(IWorkUnitService workUnitService)
+        /// <param name="workUnitService">Сервис единицы работ.</param>
+        /// <param name="notificationService">Сервис уведомления пользователя.</param>
+        public WorkUnitsViewModel(IWorkUnitService workUnitService, INotificationService notificationService)
         {
             _workUnitService = workUnitService ?? throw new ArgumentNullException(nameof(workUnitService));
+            _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
 
             WorkUnits = new ObservableCollection<WorkUnit>();
 
@@ -54,6 +58,11 @@ namespace RM.App.ViewModels
                 {
                     WorkUnits.Add(new WorkUnit { Id = item.Id, Name = item.Name });
                 }
+            }
+            catch
+            {
+                _notificationService.Show("Не удалось загрузить данные. Попробуйте повторить позже.", 
+                    "Ошибка при загрузке данных", icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
             }
             finally
             {

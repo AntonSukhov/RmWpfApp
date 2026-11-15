@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Wpf.Configurations;
+using Infrastructure.Wpf.Services.Notifications;
 using Infrastructure.Wpf.Services.Regions;
 using Infrastructure.Wpf.Services.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -106,6 +107,7 @@ namespace RM.App
                 }
             );
 
+            services.AddSingleton<INotificationService, MessageBoxNotificationService>();
             services.AddSingleton<IWindowService, WindowService>();
             services.AddSingleton<IRegionService, RegionService>((provider) =>
                 {
