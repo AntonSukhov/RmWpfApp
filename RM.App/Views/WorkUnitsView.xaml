@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Infrastructure.Wpf.Interactivity;assembly=Infrastructure.Wpf"
         xmlns:vm="clr-namespace:RM.App.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:WorkUnitsViewModel, IsDesignTimeCreatable=False}"
@@ -43,6 +44,7 @@
 
         <DataGrid Grid.Row="2" 
                   IsReadOnly="True" 
+                  i:LoadingAdornerHelper.IsLoading="{Binding IsLoading}"
                   ItemsSource="{Binding WorkUnits, Mode=OneWay}"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>

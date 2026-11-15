@@ -1,5 +1,5 @@
-﻿using Infrastructure.Foundation.Bindings;
-using Infrastructure.Foundation.Commands;
+﻿using Infrastructure.Foundation.Commands;
+using Infrastructure.Mvvm.ViewModels;
 using RM.Api.Services;
 using RM.App.Models;
 using RM.App.Views;
@@ -11,7 +11,7 @@ namespace RM.App.ViewModels
     /// <summary>
     /// Модель представления для представления <see cref="WorkUnitsView"/>.
     /// </summary>
-    public class WorkUnitsViewModel : NotifyPropertyChangedBase
+    public class WorkUnitsViewModel : LoadingViewModelBase
     {
         private readonly IWorkUnitService _workUnitService;
 
@@ -42,6 +42,8 @@ namespace RM.App.ViewModels
 
         private async void ExecuteUpdateWorkUnits(object obj)
         {
+            IsLoading = true;
+
             try
             {
                 var workUnitDtos = await _workUnitService.GetAllAsync();
@@ -53,9 +55,9 @@ namespace RM.App.ViewModels
                     WorkUnits.Add(new WorkUnit { Id = item.Id, Name = item.Name });
                 }
             }
-            catch (Exception ex)
+            finally
             {
-                throw ex;
+                IsLoading = false;
             }
         }
     }
