@@ -70,7 +70,7 @@
         <TabControl x:Name="ContentTabs" Grid.Row="2" TabStripPlacement="Top"/>
 
         <StatusBar Grid.Row="3">
-            <StatusBarItem x:Name="StatusText">Готово</StatusBarItem>
+            <StatusBarItem Content="Готово"/>
         </StatusBar>
     </Grid>
 </Window>
