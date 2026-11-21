@@ -64,6 +64,7 @@
     <Compile Include="Factories\AboutWindowViewModelFactory.cs" />
     <Compile Include="Factories\IWorkUnitsViewModelFactory.cs" />
     <Compile Include="Factories\WorkUnitsViewModelFactory.cs" />
+    <Compile Include="Models\WorkType.cs" />
     <Compile Include="Models\WorkUnit.cs" />
     <Compile Include="ViewModels\PerformersViewModel.cs" />
     <Compile Include="ViewModels\WorkTypesViewModel.cs" />

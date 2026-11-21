@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using RM.App.ViewModels;
+using System.Windows.Controls;
 
 namespace RM.App.Views
 {
@@ -10,6 +11,14 @@ namespace RM.App.Views
         public WorkTypesView()
         {
             InitializeComponent();
+        }
+
+        private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is WorkTypesViewModel viewModel)
+            {
+                viewModel.UpdateWorkTypesCommand.Execute(this);
+            }
         }
     }
 }
