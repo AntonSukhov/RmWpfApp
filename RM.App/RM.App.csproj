@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\ServiceCollectionExtensions.cs" />
     <Compile Include="Factories\IWorkTypesViewModelFactory.cs" />
     <Compile Include="Factories\WorkTypesViewModelFactory.cs" />
     <Compile Include="Factories\IPerformersViewModelFactory.cs" />
@@ -139,9 +140,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Infrastructure.Foundation">
       <Version>1.0.0</Version>
