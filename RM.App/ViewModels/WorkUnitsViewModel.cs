@@ -1,6 +1,8 @@
 ﻿using Infrastructure.Foundation.Commands;
+using Infrastructure.Mapping.Interfaces;
 using Infrastructure.Mvvm.ViewModels;
 using Infrastructure.Wpf.Services.Notifications;
+using RM.Api.DTOs.Responses;
 using RM.Api.Services;
 using RM.App.Models;
 using RM.App.Views;
@@ -15,6 +17,7 @@ namespace RM.App.ViewModels
     public class WorkUnitsViewModel : LoadingViewModelBase
     {
         private readonly IWorkUnitService _workUnitService;
+        private readonly IMapper<WorkUnitResponse, WorkUnit> _workUnitMapper;
         private readonly INotificationService _notificationService;
 
         /// <summary>
@@ -33,11 +36,18 @@ namespace RM.App.ViewModels
         /// Инициализирует экземпляр <see cref="WorkUnitsViewModel"/>.
         /// </summary>
         /// <param name="workUnitService">Сервис единицы работ.</param>
+        /// <param name="workUnitMapper">Маппер единицы работ.</param>
         /// <param name="notificationService">Сервис уведомления пользователя.</param>
-        public WorkUnitsViewModel(IWorkUnitService workUnitService, INotificationService notificationService)
+        public WorkUnitsViewModel(IWorkUnitService workUnitService,
+                                  IMapper<WorkUnitResponse, WorkUnit> workUnitMapper,
+                                  INotificationService notificationService)
         {
-            _workUnitService = workUnitService ?? throw new ArgumentNullException(nameof(workUnitService));
-            _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
+            _workUnitService = workUnitService
+                ?? throw new ArgumentNullException(nameof(workUnitService));
+            _workUnitMapper = workUnitMapper
+                ?? throw new ArgumentNullException(nameof(workUnitMapper));
+            _notificationService = notificationService
+                ?? throw new ArgumentNullException(nameof(notificationService));
 
             WorkUnits = new ObservableCollection<WorkUnit>();
 
@@ -56,13 +66,15 @@ namespace RM.App.ViewModels
 
                 foreach (var item in workUnitDtos)
                 {
-                    WorkUnits.Add(new WorkUnit { Id = item.Id, Name = item.Name });
+                    WorkUnits.Add(_workUnitMapper.Map(item));
                 }
             }
             catch
             {
-                _notificationService.Show("Не удалось загрузить единицы работ. Попробуйте повторить позже.", 
-                    "Ошибка при загрузке единиц работ", icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
+                _notificationService.Show(
+                    "Не удалось загрузить единицы работ. Попробуйте повторить позже.",
+                    "Ошибка при загрузке единиц работ",
+                    icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
             }
             finally
             {

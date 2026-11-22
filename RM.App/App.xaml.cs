@@ -1,4 +1,6 @@
-﻿using Infrastructure.Wpf.Configurations;
+﻿using Infrastructure.Mapping.AutoMapper;
+using Infrastructure.Mapping.Interfaces;
+using Infrastructure.Wpf.Configurations;
 using Infrastructure.Wpf.Services.Notifications;
 using Infrastructure.Wpf.Services.Regions;
 using Infrastructure.Wpf.Services.Windows;
@@ -123,6 +125,10 @@ namespace RM.App
             services.AddSingleton<IAboutWindowViewModelFactory, AboutWindowViewModelFactory>();
             services.AddSingleton<ApplicationWindowViewModel>();
             services.AddTransient<AboutWindowViewModel>();
+
+            services.AddAutoMapper(config => { },
+                typeof(Mapping.Profiles.WorkUnitMappingProfile));
+            services.AddSingleton(typeof(IMapper<,>), typeof(Mapper<,>));
 
             return services;
         }
