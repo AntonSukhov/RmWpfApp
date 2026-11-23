@@ -65,6 +65,7 @@
     <Compile Include="Factories\AboutWindowViewModelFactory.cs" />
     <Compile Include="Factories\IWorkUnitsViewModelFactory.cs" />
     <Compile Include="Factories\WorkUnitsViewModelFactory.cs" />
+    <Compile Include="Mapping\Profiles\WorkTypeMappingProfile.cs" />
     <Compile Include="Mapping\Profiles\WorkUnitMappingProfile.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Models\WorkUnit.cs" />

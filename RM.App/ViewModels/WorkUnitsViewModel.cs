@@ -38,6 +38,7 @@ namespace RM.App.ViewModels
         /// <param name="workUnitService">Сервис единицы работ.</param>
         /// <param name="workUnitMapper">Маппер единицы работ.</param>
         /// <param name="notificationService">Сервис уведомления пользователя.</param>
+        /// <exception cref="ArgumentNullException" />
         public WorkUnitsViewModel(IWorkUnitService workUnitService,
                                   IMapper<WorkUnitResponse, WorkUnit> workUnitMapper,
                                   INotificationService notificationService)
@@ -66,7 +67,9 @@ namespace RM.App.ViewModels
 
                 foreach (var item in workUnitDtos)
                 {
-                    WorkUnits.Add(_workUnitMapper.Map(item));
+                    var workUnit = _workUnitMapper.Map(item);
+
+                    WorkUnits.Add(workUnit);
                 }
             }
             catch

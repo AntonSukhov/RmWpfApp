@@ -1,6 +1,8 @@
 ﻿using Infrastructure.Foundation.Commands;
+using Infrastructure.Mapping.Interfaces;
 using Infrastructure.Mvvm.ViewModels;
 using Infrastructure.Wpf.Services.Notifications;
+using RM.Api.DTOs.Responses;
 using RM.Api.Services;
 using RM.App.Models;
 using RM.App.Views;
@@ -15,6 +17,7 @@ namespace RM.App.ViewModels
     public class WorkTypesViewModel : LoadingViewModelBase
     {
         private readonly IWorkTypeService _workTypeService;
+        private readonly IMapper<WorkTypeResponse, WorkType> _workTypeMapper;
         private readonly INotificationService _notificationService;
 
         /// <summary>
@@ -33,11 +36,19 @@ namespace RM.App.ViewModels
         /// Инициализирует экземпляр <see cref="WorkTypesViewModel"/>.
         /// </summary>
         /// <param name="workTypeService">Сервис видов работ.</param>
+        /// <param name="workTypeMapper">Маппет вида работы.</param>
         /// <param name="notificationService">Сервис уведомления пользователя.</param>
-        public WorkTypesViewModel(IWorkTypeService workTypeService, INotificationService notificationService)
+        /// <exception cref="ArgumentNullException" />
+        public WorkTypesViewModel(IWorkTypeService workTypeService,
+                                  IMapper<WorkTypeResponse, WorkType> workTypeMapper,
+                                  INotificationService notificationService)
         {
-            _workTypeService = workTypeService ?? throw new ArgumentNullException(nameof(workTypeService));
-            _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
+            _workTypeService = workTypeService 
+                ?? throw new ArgumentNullException(nameof(workTypeService));
+            _workTypeMapper = workTypeMapper
+                ?? throw new ArgumentNullException(nameof(workTypeMapper));
+            _notificationService = notificationService 
+                ?? throw new ArgumentNullException(nameof(notificationService));
 
             WorkTypes = new ObservableCollection<WorkType>();
 
@@ -51,9 +62,9 @@ namespace RM.App.ViewModels
             try
             {
                 var workTypeDtos = await _workTypeService.GetAllAsync(
-                    new Api.DTOs.Requests.PageOptionsRequest 
-                    { 
-                        PageNumber = 1, 
+                    new Api.DTOs.Requests.PageOptionsRequest
+                    {
+                        PageNumber = 1,
                         PageSize = 1000
                     });
 
@@ -61,29 +72,17 @@ namespace RM.App.ViewModels
 
                 foreach (var item in workTypeDtos)
                 {
-
-                    var workType = new WorkType
-                    {
-                        Id = item.Id,
-                        Name = item.Name
-                    };
-
-                    if (item.WorkUnit != null)
-                    {
-                        workType.WorkUnit = new WorkUnit 
-                        { 
-                            Id = item.WorkUnit.Id, 
-                            Name = item.WorkUnit.Name 
-                        };
-                    }
+                    var workType = _workTypeMapper.Map(item);
 
                     WorkTypes.Add(workType);
                 }
             }
             catch
             {
-                _notificationService.Show("Не удалось загрузить виды работ. Попробуйте повторить позже.",
-                    "Ошибка при загрузке видов работ", icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
+                _notificationService.Show(
+                    "Не удалось загрузить виды работ. Попробуйте повторить позже.",
+                    "Ошибка при загрузке видов работ", 
+                    icon: Infrastructure.Wpf.Enums.NotificationIcon.Error);
             }
             finally
             {

@@ -7,6 +7,7 @@ using Infrastructure.Wpf.Services.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using RM.Api.Services;
 using RM.App.Factories;
+using RM.App.Mapping.Profiles;
 using RM.App.ViewModels;
 using RM.App.Views;
 using System;
@@ -172,7 +173,9 @@ namespace RM.App.Extensions
         public static IServiceCollection RegisterAutoMapperProfiles(this IServiceCollection services)
         {
             services.AddAutoMapper(config => { },
-                typeof(Mapping.Profiles.WorkUnitMappingProfile));
+                typeof(WorkUnitMappingProfile),
+                typeof(WorkTypeMappingProfile));
+
             services.AddSingleton(typeof(IMapper<,>), typeof(Mapper<,>));
 
             return services;
