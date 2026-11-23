@@ -27,10 +27,10 @@ namespace RM.App.ViewModels
         public ObservableCollection<WorkUnit> WorkUnits { get; }
 
         /// <summary>
-        /// Получает команду обновления единиц работ.
+        /// Получает команду перезагрузки списка единиц работ из сервиса.
         /// </summary>
-        /// <value>Команда обновления единиц работ.</value>
-        public RelayCommand UpdateWorkUnitsCommand { get; }
+        /// <value>Команда перезагрузки списка единиц работ.</value>
+        public RelayCommand ReloadWorkUnitsCommand { get; }
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="WorkUnitsViewModel"/>.
@@ -51,10 +51,10 @@ namespace RM.App.ViewModels
 
             WorkUnits = new ObservableCollection<WorkUnit>();
 
-            UpdateWorkUnitsCommand = new RelayCommand(ExecuteUpdateWorkUnits);
+            ReloadWorkUnitsCommand = new RelayCommand(ExecuteReloadWorkUnits);
         }
 
-        private async void ExecuteUpdateWorkUnits(object obj)
+        private async void ExecuteReloadWorkUnits(object obj)
         {
             IsLoading = true;
 

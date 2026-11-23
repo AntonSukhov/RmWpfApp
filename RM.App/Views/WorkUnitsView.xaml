@@ -18,7 +18,8 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Действия">
-                <MenuItem Header="Обновить" Command="{Binding UpdateWorkUnitsCommand}"/>
+                <MenuItem Header="Обновить список единиц работ" ToolTip="Получить актуальные единицы работ из сервиса"
+                          Command="{Binding ReloadWorkUnitsCommand}"/>
             </MenuItem>
             <MenuItem Header="Окно"/>
             <MenuItem Header="Справка">
@@ -28,13 +29,13 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar>
-                <Button Command="{Binding UpdateWorkUnitsCommand}">
+                <Button Command="{Binding ReloadWorkUnitsCommand}" ToolTip="Получить актуальные единицы работ из сервиса">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⟳" 
                                    FontSize="16" 
                                    VerticalAlignment="Center" 
                                    Margin="0,-2,0,0"/>
-                        <TextBlock Text="Обновить" 
+                        <TextBlock Text="Обновить список" 
                                    VerticalAlignment="Center" 
                                    Margin="4,0,0,0"/>
                     </StackPanel>
@@ -53,7 +54,7 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Обновить" ToolTip="Обновить справочник единиц работ"/>
+                    <MenuItem Header="Обновить список" ToolTip="Получить актуальные единицы работ из сервиса"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             

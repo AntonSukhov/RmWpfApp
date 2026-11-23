@@ -17,7 +17,7 @@ namespace RM.App.Views
         {
             if(DataContext is WorkUnitsViewModel viewModel)
             {
-                viewModel.UpdateWorkUnitsCommand.Execute(this);
+                viewModel.ReloadWorkUnitsCommand.Execute(this);
             }
         }
     }

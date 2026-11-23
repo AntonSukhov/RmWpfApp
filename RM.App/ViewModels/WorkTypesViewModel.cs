@@ -24,10 +24,10 @@ namespace RM.App.ViewModels
         public ObservableCollection<WorkType> WorkTypes { get; }
 
         /// <summary>
-        /// Получает команду обновления видов работ.
+        /// Получает команду перезагрузки списка видов работ из сервиса.
         /// </summary>
-        /// <value>Команда обновления видов работ.</value>
-        public RelayCommand UpdateWorkTypesCommand { get; }
+        /// <value>Команда перезагрузки списка видов работ.</value>
+        public RelayCommand ReloadWorkTypesCommand { get; }
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="WorkTypesViewModel"/>.
@@ -41,10 +41,10 @@ namespace RM.App.ViewModels
 
             WorkTypes = new ObservableCollection<WorkType>();
 
-            UpdateWorkTypesCommand = new RelayCommand(ExecuteUpdateWorkTypes);
+            ReloadWorkTypesCommand = new RelayCommand(ExecuteReloadWorkTypes);
         }
 
-        private async void ExecuteUpdateWorkTypes(object obj)
+        private async void ExecuteReloadWorkTypes(object obj)
         {
             IsLoading = true;
 

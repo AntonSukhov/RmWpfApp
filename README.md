@@ -263,16 +263,16 @@ classDiagram
         -_workUnitMapper : IMapper~WorkUnitResponse, WorkUnit~
         -_notificationService : INotificationService
         +WorkUnits : ObservableCollection~WorkUnit~
-        +UpdateWorkUnitsCommand : RelayCommand
-        -ExecuteUpdateWorkUnits(obj)
+        +ReloadWorkUnitsCommand : RelayCommand
+        -ExecuteReloadWorkUnits(obj)
     }
 
     class WorkTypesViewModel {
         -_workTypeService : IWorkTypeService
         -_notificationService : INotificationService
         +WorkTypes : ObservableCollection~WorkType~
-        +UpdateWorkTypesCommand : RelayCommand
-        -ExecuteUpdateWorkTypes(obj)
+        +ReloadWorkTypesCommand : RelayCommand
+        -ExecuteReloadWorkTypes(obj)
     }
 
     class PerformersViewModel {
