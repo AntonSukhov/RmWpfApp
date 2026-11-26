@@ -57,6 +57,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\ServiceCollectionExtensions.cs" />
+    <Compile Include="Factories\EditWorkTypeWindowViewModelFactory.cs" />
+    <Compile Include="Factories\IEditWorkTypeWindowViewModelFactory.cs" />
     <Compile Include="Factories\IWorkTypesViewModelFactory.cs" />
     <Compile Include="Factories\WorkTypesViewModelFactory.cs" />
     <Compile Include="Factories\IPerformersViewModelFactory.cs" />
@@ -65,13 +67,18 @@
     <Compile Include="Factories\AboutWindowViewModelFactory.cs" />
     <Compile Include="Factories\IWorkUnitsViewModelFactory.cs" />
     <Compile Include="Factories\WorkUnitsViewModelFactory.cs" />
+    <Compile Include="Enums\DialogMode.cs" />
     <Compile Include="Mapping\Profiles\WorkTypeMappingProfile.cs" />
     <Compile Include="Mapping\Profiles\WorkUnitMappingProfile.cs" />
     <Compile Include="Models\WorkType.cs" />
     <Compile Include="Models\WorkUnit.cs" />
+    <Compile Include="ViewModels\EditWorkTypeWindowViewModel.cs" />
     <Compile Include="ViewModels\PerformersViewModel.cs" />
     <Compile Include="ViewModels\WorkTypesViewModel.cs" />
     <Compile Include="ViewModels\WorkUnitsViewModel.cs" />
+    <Compile Include="Views\EditWorkTypeWindow.xaml.cs">
+      <DependentUpon>EditWorkTypeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PerformersView.xaml.cs">
       <DependentUpon>PerformersView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +109,10 @@
       <DependentUpon>ApplicationWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\EditWorkTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PerformersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,7 +152,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Infrastructure.Foundation">
       <Version>1.0.0</Version>

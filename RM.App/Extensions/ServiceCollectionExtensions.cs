@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Mapping.AutoMapper;
 using Infrastructure.Mapping.Interfaces;
 using Infrastructure.Wpf.Configurations;
+using Infrastructure.Wpf.Services.Dialogs;
 using Infrastructure.Wpf.Services.Notifications;
 using Infrastructure.Wpf.Services.Regions;
 using Infrastructure.Wpf.Services.Windows;
@@ -64,6 +65,7 @@ namespace RM.App.Extensions
                 return new RegionService(tabControl, regionConfigurations);
             }
             );
+            services.AddSingleton<IDialogService, DialogService>();
 
             return services;
         }
@@ -79,6 +81,7 @@ namespace RM.App.Extensions
             services.AddTransient<AboutWindow>();
             services.AddTransient<WorkUnitsView>();
             services.AddTransient<WorkTypesView>();
+            services.AddTransient<EditWorkTypeWindow>();
             services.AddTransient<PerformersView>();
 
             return services;
@@ -104,8 +107,9 @@ namespace RM.App.Extensions
                         }
                     }
             );
+
             services.AddSingleton((provider) =>
-                    new Dictionary<Type, RegionItemConfiguration>
+                new Dictionary<Type, RegionItemConfiguration>
                 {
                     {
                         typeof(WorkUnitsViewModel),
@@ -129,6 +133,20 @@ namespace RM.App.Extensions
                         {
                             ViewFactory = () => provider.GetService<PerformersView>(),
                             Title = "Исполнители договоров"
+                        }
+                    }
+                }
+            );
+
+            services.AddSingleton((provider) =>
+                new Dictionary<Type, DialogConfiguration>
+                {
+                    {
+                        typeof(EditWorkTypeWindowViewModel),
+                        new DialogConfiguration
+                        {
+                            OwnerFactory = () => provider.GetService<ApplicationWindow>(),
+                            WindowFactory = () => provider.GetService<EditWorkTypeWindow>()
                         }
                     }
                 }
@@ -161,6 +179,7 @@ namespace RM.App.Extensions
             services.AddSingleton<IWorkTypesViewModelFactory, WorkTypesViewModelFactory>();
             services.AddSingleton<IPerformersViewModelFactory, PerformersViewModelFactory>();
             services.AddSingleton<IAboutWindowViewModelFactory, AboutWindowViewModelFactory>();
+            services.AddSingleton<IEditWorkTypeWindowViewModelFactory, EditWorkTypeWindowViewModelFactory>();
 
             return services;
         }

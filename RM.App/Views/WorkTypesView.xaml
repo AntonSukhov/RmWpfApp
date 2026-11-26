@@ -18,8 +18,13 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Действия">
-                <MenuItem Header="Обновить список видов работ" ToolTip="Получить актуальные виды работ из сервиса"
-                          Command="{Binding ReloadWorkTypesCommand}"/>
+                <MenuItem   Header="Обновить список видов работ" 
+                            ToolTip="Получить актуальные виды работ из сервиса"
+                            Command="{Binding ReloadWorkTypesCommand}"/>
+                
+                <MenuItem   Header="Создать вид работ" 
+                            ToolTip="Создать вид работ"
+                            Command="{Binding CreateWorkTypeCommand}"/>
             </MenuItem>
             <MenuItem Header="Окно"/>
             <MenuItem Header="Справка">
@@ -29,7 +34,8 @@
 
         <ToolBarTray Grid.Row="1">
             <ToolBar>
-                <Button Command="{Binding ReloadWorkTypesCommand}" ToolTip="Получить актуальные виды работ из сервиса">
+                <Button Command="{Binding ReloadWorkTypesCommand}" 
+                        ToolTip="Получить актуальные виды работ из сервиса">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⟳" 
                            FontSize="16" 
@@ -40,6 +46,24 @@
                            Margin="4,0,0,0"/>
                     </StackPanel>
                 </Button>
+
+                <Separator />
+                
+                <Button Command="{Binding CreateWorkTypeCommand}" 
+                        ToolTip="Создать вид работ">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Text="+" 
+                                    FontSize="18" 
+                                    VerticalAlignment="Center" 
+                                    Margin="0,-2,0,0"/>
+                        
+                        <TextBlock  Text="Создать вид работ" 
+                                    VerticalAlignment="Center" 
+                                    Margin="4,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                
+                
             </ToolBar>
         </ToolBarTray>
 
