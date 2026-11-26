@@ -17,8 +17,8 @@ namespace RM.App.ViewModels
     public class WorkUnitsViewModel : LoadingViewModelBase
     {
         private readonly IWorkUnitService _workUnitService;
-        private readonly IMapper<WorkUnitResponse, WorkUnit> _workUnitMapper;
         private readonly INotificationService _notificationService;
+        private readonly IMapper<WorkUnitResponse, WorkUnit> _workUnitMapper;
 
         /// <summary>
         /// Получает единицы работ.
@@ -36,19 +36,18 @@ namespace RM.App.ViewModels
         /// Инициализирует экземпляр <see cref="WorkUnitsViewModel"/>.
         /// </summary>
         /// <param name="workUnitService">Сервис единицы работ.</param>
-        /// <param name="workUnitMapper">Маппер единицы работ.</param>
         /// <param name="notificationService">Сервис уведомления пользователя.</param>
-        /// <exception cref="ArgumentNullException" />
+        /// <param name="workUnitMapper">Маппер единицы работ.</param>
         public WorkUnitsViewModel(IWorkUnitService workUnitService,
-                                  IMapper<WorkUnitResponse, WorkUnit> workUnitMapper,
-                                  INotificationService notificationService)
+                                  INotificationService notificationService,
+                                  IMapper<WorkUnitResponse, WorkUnit> workUnitMapper)
         {
             _workUnitService = workUnitService
                 ?? throw new ArgumentNullException(nameof(workUnitService));
-            _workUnitMapper = workUnitMapper
-                ?? throw new ArgumentNullException(nameof(workUnitMapper));
             _notificationService = notificationService
                 ?? throw new ArgumentNullException(nameof(notificationService));
+            _workUnitMapper = workUnitMapper
+                ?? throw new ArgumentNullException(nameof(workUnitMapper));
 
             WorkUnits = new ObservableCollection<WorkUnit>();
 

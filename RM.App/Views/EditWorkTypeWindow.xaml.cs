@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RM.App.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RM.App.Views
 {
@@ -22,6 +11,14 @@ namespace RM.App.Views
         public EditWorkTypeWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is EditWorkTypeWindowViewModel viewModel)
+            {
+                viewModel.ReloadWorkUnitsCommand.Execute(this);
+            }
         }
     }
 }

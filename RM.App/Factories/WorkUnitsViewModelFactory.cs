@@ -21,23 +21,23 @@ namespace RM.App.Factories
         /// Инициализирует экземпляр <see cref="WorkUnitsViewModelFactory"/>.
         /// </summary>
         /// <param name="workUnitService">Сервис единицы работ.</param>
-        /// <param name="workUnitMapper">Маппер единицы работ.</param>
         /// <param name="notificationService">Сервис уведомления пользователя.</param>
+        /// <param name="workUnitMapper">Маппер единицы работ.</param>
         /// <exception cref="ArgumentNullException" />
         public WorkUnitsViewModelFactory(IWorkUnitService workUnitService,
-                                         IMapper<WorkUnitResponse, WorkUnit> workUnitMapper,
-                                         INotificationService notificationService)
+                                         INotificationService notificationService,
+                                         IMapper<WorkUnitResponse, WorkUnit> workUnitMapper)
         {
             _workUnitService = workUnitService
                 ?? throw new ArgumentNullException(nameof(workUnitService));
-            _workUnitMapper = workUnitMapper
-                ?? throw new ArgumentNullException(nameof(workUnitMapper));
             _notificationService = notificationService
                 ?? throw new ArgumentNullException(nameof(notificationService));
+            _workUnitMapper = workUnitMapper
+                ?? throw new ArgumentNullException(nameof(workUnitMapper));
         }
 
         /// <inheritdoc/>
         public WorkUnitsViewModel Create() =>
-            new WorkUnitsViewModel(_workUnitService, _workUnitMapper, _notificationService);
+            new WorkUnitsViewModel(_workUnitService, _notificationService, _workUnitMapper);
     }
 }

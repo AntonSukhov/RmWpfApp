@@ -13,7 +13,7 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
         UseLayoutRounding="True"
-        SnapsToDevicePixels="True">
+        SnapsToDevicePixels="True" Loaded="OnLoaded">
     <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,6 +26,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Название -->
         <Label Grid.Row="0"
                Grid.Column="0"
                Content="_Название вида работ:"
@@ -37,10 +38,10 @@
         <TextBox x:Name="NameTextBox"
                  Grid.Row="0"
                  Grid.Column="1"
-                 MinWidth="250"
                  VerticalAlignment="Center"
                  Margin="0,0,0,8"/>
-
+        
+        <!-- Единица работ -->
         <Label Grid.Row="1"
                Grid.Column="0"
                Content="_Единица работ:"
@@ -52,10 +53,12 @@
         <ComboBox x:Name="WorkUnitComboBox"
                   Grid.Row="1"
                   Grid.Column="1"
-                  MinWidth="250"
                   VerticalAlignment="Center"
-                  Margin="0,0,0,16"/>
-
+                  Margin="0,0,0,16" 
+                  ItemsSource="{Binding WorkUnits, Mode=OneWay}"
+                  DisplayMemberPath="Name"/>
+        
+        <!-- Кнопки -->
         <StackPanel Grid.Row="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
