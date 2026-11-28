@@ -82,7 +82,13 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Обновить список" ToolTip="Получить актуальные виды работ из сервиса"/>
+                    <MenuItem   Header="Обновить список" 
+                                Command="{Binding ReloadWorkTypesCommand}" 
+                                ToolTip="Получить актуальные виды работ из сервиса"/>
+                    
+                    <MenuItem   Header="Создать вид работ" 
+                                Command="{Binding CreateWorkTypeCommand}" 
+                                ToolTip="Создать новый вид работ"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

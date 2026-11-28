@@ -11,10 +11,10 @@ namespace RM.App.Models
         /// Получает или задает ИД единицы работ.
         /// </summary>
         /// <value>ИД единицы работ.</value>
-        public int Id
+        public short Id
         {
-            get => GetValue<int>(nameof(Id));
-            set => SetValue(value, nameof(Id));
+            get => GetValue<short>();
+            set => SetValue(value);
         }
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace RM.App.Models
         /// <value>Название единицы работ.</value>
         public string Name
         {
-            get => GetValue<string>(nameof(Name));
-            set => SetValue(value, nameof(Name));
+            get => GetValue<string>();
+            set => SetValue(value);
         }
     }
 }

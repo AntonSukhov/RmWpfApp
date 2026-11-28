@@ -20,6 +20,12 @@ namespace RM.App.ViewModels
         private readonly IWorkUnitService _workUnitService;
         private readonly INotificationService _notificationService;
         private readonly IMapper<WorkUnitResponse, WorkUnit> _workUnitMapper;
+        private readonly WorkUnit _emptyWorkUnit;
+
+        /// <summary>
+        /// Событие запроса на закрытие диалогово окна.
+        /// </summary>
+        public event EventHandler RequestClose;
 
         /// <summary>
         /// Получает режим открытия окна.
@@ -36,16 +42,49 @@ namespace RM.App.ViewModels
             : "Создание вида работ";
 
         /// <summary>
+        /// Получает или задает название вида работ.
+        /// </summary>
+        /// <value>Название вида работ.</value>
+        public string WorkTypeName
+        {
+            get => GetValue<string>();
+            set => SetValue(value);
+        }
+
+        /// <summary>
         /// Получает единицы работ.
         /// </summary>
         /// <value>Единицы работ.</value>
         public ObservableCollection<WorkUnit> WorkUnits { get; }
 
         /// <summary>
+        /// Получает или задает выбранную единицу работ.
+        /// </summary>
+        /// <value>Выбранная единица работ.</value>
+        public WorkUnit SelectedWorkUnit
+        {
+            get => GetValue<WorkUnit>();
+            set => SetValue(value);
+        }
+
+        /// <summary>
+        /// Получает итоговую единицу работ для сохранения.
+        /// </summary>
+        /// <value>Итоговая единица работ для сохранения.</value>
+        public WorkUnit ResultWorkUnit => SelectedWorkUnit == _emptyWorkUnit
+            ? null : SelectedWorkUnit;
+
+        /// <summary>
         /// Получает команду перезагрузки списка единиц работ из сервиса.
         /// </summary>
         /// <value>Команда перезагрузки списка единиц работ.</value>
         public RelayCommand ReloadWorkUnitsCommand { get; }
+
+        /// <summary>
+        /// Получает команду сохранения вида работ.
+        /// </summary>
+        /// <value>Команда сохранения вида работ.</value>
+        public RelayCommand SaveWorkTypeCommand { get; }
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="EditWorkTypeWindowViewModel"/>.
@@ -68,8 +107,13 @@ namespace RM.App.ViewModels
 
             DialogMode = dialogMode;
             WorkUnits = new ObservableCollection<WorkUnit>();
+            _emptyWorkUnit = new WorkUnit
+            {
+                Name = "не указана"
+            };
 
             ReloadWorkUnitsCommand = new RelayCommand(ExecuteReloadWorkUnits);
+            SaveWorkTypeCommand = new RelayCommand(ExecuteSaveWorkType);
         }
 
         private async void ExecuteReloadWorkUnits(object obj)
@@ -81,6 +125,8 @@ namespace RM.App.ViewModels
                 var workUnitDtos = await _workUnitService.GetAllAsync();
 
                 WorkUnits.Clear();
+
+                WorkUnits.Add(_emptyWorkUnit);
 
                 foreach (var item in workUnitDtos)
                 {
@@ -100,6 +146,18 @@ namespace RM.App.ViewModels
             {
                 IsLoading = false;
             }
+        }
+        private void ExecuteSaveWorkType(object obj)
+        {
+            if (string.IsNullOrWhiteSpace(WorkTypeName))
+            {
+                _notificationService.Show(
+                    "Отсутствует значение названия вида работ",
+                    WindowTitle);
+                return;
+            }
+
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
     }
 }
